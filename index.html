@@ -9,104 +9,92 @@
 <body>
     <div class="container">
         <header>
-            <h1> LotL Encoder/Decoder</h1>
+            <h1>LotL Encoder/Decoder</h1>
             <p class="tagline">Multi-Cipher Encoding & Decoding for Security Analysis</p>
         </header>
 
-        <!-- Info section explaining the tool's purpose -->
         <div class="decoder-section">
             <div class="info">
-                <strong> What's this for?</strong> Security analysts often encounter encoded malicious commands. 
-                This tool supports the top 10 most common encoding methods used in real-world attacks from simple Base64 
-                to ROT13 and Hex. Encode your own data for testing or decode suspicious strings instantly.
+                <strong>About:</strong> Security analysts often encounter encoded malicious commands. 
+                This tool supports 100+ encoding methods used in real-world attacks. Encode your own data 
+                for testing or decode suspicious strings instantly.
             </div>
         </div>
 
-        <!-- Main encode/decode split view -->
         <div class="split-section">
-            <!-- Left side: DECODE -->
+            <!-- Decode Section -->
             <div class="decoder-section">
-                <h2 class="section-title"> Decode</h2>
+                <h2 class="section-title">Decode</h2>
                 
                 <div class="input-group">
                     <label>Select Cipher Method:</label>
-                    <select id="decodeCipher">
-                        <option value="base64">Base64 (most common)</option>
-                        <option value="hex">Hexadecimal</option>
-                        <option value="url">URL Encoding</option>
-                        <option value="rot13">ROT13</option>
-                        <option value="binary">Binary</option>
-                        <option value="ascii">ASCII Decimal</option>
-                        <option value="morse">Morse Code</option>
-                        <option value="reverse">Reverse String</option>
-                        <option value="caesar">Caesar Cipher (shift 3)</option>
-                        <option value="atbash">Atbash Cipher</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <input type="text" id="decodeSearch" class="cipher-search" placeholder="Search ciphers..." autocomplete="off">
+                        <select id="decodeCipher" size="8">
+                            <!-- Populated by JavaScript -->
+                        </select>
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <label> Encoded Input:</label>
-                    <textarea id="decodeInput" placeholder="Paste your encoded string here..."></textarea>
+                    <label>Encoded Input:</label>
+                    <textarea id="decodeInput" placeholder="Paste your encoded string here..." maxlength="50000"></textarea>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performDecode()">🔍 Decode</button>
-                    <button onclick="autoDetectDecode()"> Auto-Detect</button>
+                    <button class="primary-btn" onclick="performDecode()">Decode</button>
+                    <button onclick="autoDetectDecode()">Auto-Detect</button>
+                    <button onclick="clearDecode()">Clear</button>
                 </div>
 
                 <div id="decodeWarnings"></div>
 
                 <div class="input-group">
-                    <label> Decoded Output:</label>
+                    <label>Decoded Output:</label>
                     <div class="output-box" id="decodeOutput">
-                        <button class="copy-btn" onclick="copyOutput('decode')"> Copy</button>
+                        <button class="copy-btn" onclick="copyOutput('decode')">Copy</button>
                         <span id="decodeOutputText">Your decoded text will show up here...</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right side: ENCODE -->
+            <!-- Encode Section -->
             <div class="decoder-section">
-                <h2 class="section-title"> Encode</h2>
+                <h2 class="section-title">Encode</h2>
                 
                 <div class="input-group">
                     <label>Select Cipher Method:</label>
-                    <select id="encodeCipher">
-                        <option value="base64">Base64 (most common)</option>
-                        <option value="hex">Hexadecimal</option>
-                        <option value="url">URL Encoding</option>
-                        <option value="rot13">ROT13</option>
-                        <option value="binary">Binary</option>
-                        <option value="ascii">ASCII Decimal</option>
-                        <option value="morse">Morse Code</option>
-                        <option value="reverse">Reverse String</option>
-                        <option value="caesar">Caesar Cipher (shift 3)</option>
-                        <option value="atbash">Atbash Cipher</option>
-                    </select>
+                    <div class="select-wrapper">
+                        <input type="text" id="encodeSearch" class="cipher-search" placeholder="Search ciphers..." autocomplete="off">
+                        <select id="encodeCipher" size="8">
+                            <!-- Populated by JavaScript -->
+                        </select>
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <label> Plain Text Input:</label>
-                    <textarea id="encodeInput" placeholder="Type the text you want to encode..."></textarea>
+                    <label>Plain Text Input:</label>
+                    <textarea id="encodeInput" placeholder="Type the text you want to encode..." maxlength="50000"></textarea>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performEncode()"> Encode</button>
-                    <button onclick="encodeAll()"> Encode All</button>
+                    <button class="primary-btn" onclick="performEncode()">Encode</button>
+                    <button onclick="encodeAll()">Encode All</button>
+                    <button onclick="clearEncode()">Clear</button>
                 </div>
 
                 <div class="input-group">
-                    <label> Encoded Output:</label>
+                    <label>Encoded Output:</label>
                     <div class="output-box" id="encodeOutput">
-                        <button class="copy-btn" onclick="copyOutput('encode')"> Copy</button>
+                        <button class="copy-btn" onclick="copyOutput('encode')">Copy</button>
                         <span id="encodeOutputText">Your encoded text will appear here...</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Quick examples section -->
+
         <div class="decoder-section">
-            <h2 style="margin-bottom: 20px; font-weight: 300;">m  Quick Test Examples (Click to Load)</h2>
+            <h2 style="margin-bottom: 20px; font-weight: 300;">Quick Test Examples</h2>
             <div class="examples">
                 <div class="example-item" onclick="loadExample(0)">
                     <div class="example-title">PowerShell Base64 Command</div>
@@ -126,35 +114,29 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Cipher reference guide -->
+
         <div class="decoder-section">
-            <h2 style="margin-bottom: 20px; font-weight: 300;"> Cipher Quick Reference</h2>
-            <p style="color: #888; margin-bottom: 20px;">Here's what each encoding method does:</p>
+            <h2 style="margin-bottom: 20px; font-weight: 300;">Cipher Categories</h2>
+            <p style="color: #888; margin-bottom: 20px;">All 100+ supported cipher methods organized by category:</p>
             <div style="line-height: 2;">
-                <span class="cipher-badge">Base64</span> Standard encoding for binary-to-text (most common in attacks)<br>
-                <span class="cipher-badge">Hexadecimal</span> Converts each byte to two hex digits (0-9, A-F)<br>
-                <span class="cipher-badge">URL Encoding</span> Encodes special characters for URLs (%20 = space)<br>
-                <span class="cipher-badge">ROT13</span> Shifts letters by 13 positions (A→N, B→O)<br>
-                <span class="cipher-badge">Binary</span> Converts text to 1s and 0s (8 bits per character)<br>
-                <span class="cipher-badge">ASCII</span> Shows the decimal value of each character (A=65)<br>
-                <span class="cipher-badge">Morse Code</span> Classic dots and dashes (. = dit, - = dah)<br>
-                <span class="cipher-badge">Reverse</span> Simply reverses the string backwards<br>
-                <span class="cipher-badge">Caesar</span> Shifts all letters by 3 (A→D, B→E)<br>
-                <span class="cipher-badge">Atbash</span> Reverses the alphabet (A→Z, B→Y)<br>
+                <span class="cipher-badge">Base Encodings</span> Base16, Base32, Base64, Base85, Base91, Base58<br>
+                <span class="cipher-badge">Character Substitution</span> ROT1-25, Caesar, Atbash, Affine, Vigenère<br>
+                <span class="cipher-badge">Binary & Numeric</span> Binary, Octal, Decimal, Hexadecimal, ASCII values<br>
+                <span class="cipher-badge">Modern Standards</span> URL, HTML entities, Unicode, UTF variants<br>
+                <span class="cipher-badge">Historical</span> Morse, Bacon, Polybius, Playfair, Railfence<br>
+                <span class="cipher-badge">Hashing</span> MD5, SHA families, RIPEMD, Whirlpool<br>
             </div>
         </div>
 
         <footer>
             <p>Crafted by <a href="https://github.com/SamFrieman" class="github-link">Sam Frieman</a></p>
-            <p style="margin-top: 10px;"><a href="https://github.com/SamFrieman/Lotl-decoder" class="github-link"> Star on GitHub</a></p>
+            <p style="margin-top: 10px;"><a href="https://github.com/SamFrieman/Lotl-decoder" class="github-link">View on GitHub</a></p>
         </footer>
     </div>
 
-    <!-- Load external JavaScript files -->
+    <script src="js/security.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/decoders.js"></script>
-    <script src="js/encoders.js"></script>
+    <script src="js/ciphers.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
