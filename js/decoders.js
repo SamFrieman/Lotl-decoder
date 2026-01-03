@@ -50,3 +50,17 @@ function decodeMorse(input) {
         .map(code => morseToChar[code] || '?')
         .join('');
 }
+
+// Reverse decoder - flips the string backwards
+function decodeReverse(input) {
+    return input.split('').reverse().join('');
+}
+
+// Caesar cipher decoder - shifts letters back by 3 positions
+function decodeCaesar(input) {
+    return input.replace(/[a-zA-Z]/g, function(c) {
+        const start = c <= 'Z' ? 65 : 97;
+        // Shift backwards by 3, with wraparound
+        return String.fromCharCode(start + (c.charCodeAt(0) - start - 3 + 26) % 26);
+    });
+}
