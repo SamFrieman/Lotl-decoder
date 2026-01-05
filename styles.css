@@ -341,15 +341,6 @@ footer {
 }
 
 select {
-    width: 100%;
-    padding: 8px 15px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 255, 65, 0.3);
     border-radius: 0 0 8px 8px;
-    color: #00ff41;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
     border-top: none;
 }
