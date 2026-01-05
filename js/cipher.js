@@ -481,4 +481,90 @@ const Ciphers = {
         }
     }
 };
-    
+
+/ Initialize all ROT ciphers (ROT1 through ROT25)
+for (let i = 1; i <= 25; i++) {
+    Ciphers[`rot${i}`] = Ciphers.generateRot(i);
+}
+
+// Hashing functions (encode only)
+// Note: These require Web Crypto API or external libraries in production
+Ciphers.md5 = {
+    encode: async (input) => {
+        // Simplified MD5 - in production use crypto library
+        return 'MD5 hashing requires external library';
+    },
+    decode: () => 'Hash functions cannot be decoded'
+};
+
+Ciphers.sha256 = {
+    encode: async (input) => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+    },
+    decode: () => 'Hash functions cannot be decoded'
+};
+
+// Additional Base encodings (simplified implementations)
+Ciphers.base91 = {
+    encode: (input) => 'Base91 encoding requires external library',
+    decode: (input) => 'Base91 decoding requires external library'
+};
+
+Ciphers.base62 = {
+    encode: (input) => {
+        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let num = BigInt('0x' + Array.from(input).map(c => 
+            c.charCodeAt(0).toString(16).padStart(2, '0')).join(''));
+        
+        let result = '';
+        while (num > 0) {
+            result = alphabet[Number(num % 62n)] + result;
+            num = num / 62n;
+        }
+        
+        return result || '0';
+    },
+    decode: (input) => {
+        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let num = BigInt(0);
+        
+        for (let i = 0; i < input.length; i++) {
+            num = num * 62n + BigInt(alphabet.indexOf(input[i]));
+        }
+        
+        let hex = num.toString(16);
+        if (hex.length % 2) hex = '0' + hex;
+        
+        let result = '';
+        for (let i = 0; i < hex.length; i += 2) {
+            result += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+        }
+        
+        return result;
+    }
+};
+
+Ciphers.base45 = {
+    encode: (input) => 'Base45 encoding not yet implemented',
+    decode: (input) => 'Base45 decoding not yet implemented'
+};
+
+Ciphers.base36 = {
+    encode: (input) => {
+        return Array.from(input)
+            .map(c => c.charCodeAt(0).toString(36))
+            .join('-');
+    },
+    decode: (input) => {
+        return input.split('-')
+            .map(n => String.fromCharCode(parseInt(n, 36)))
+            .join('');
+    }
+};
+
+
