@@ -1,17 +1,15 @@
 // Application configuration and constants
 
-// Application metadata
 const AppConfig = {
     version: '2.0.0',
     name: 'LotL Encoder/Decoder',
     maxInputLength: 50000,
     rateLimit: {
         maxRequests: 100,
-        timeWindow: 60000 // 1 minute in milliseconds
+        timeWindow: 60000
     }
 };
 
-// Example payloads for demonstration
 const Examples = [
     {
         text: "V3JpdGUtSG9zdCAiTWFsaWNpb3VzIGNvZGUgZGV0ZWN0ZWQi",
@@ -35,7 +33,6 @@ const Examples = [
     }
 ];
 
-// Dangerous command patterns for threat detection
 const ThreatPatterns = {
     powershell: [
         'Invoke-WebRequest',
@@ -89,7 +86,6 @@ const ThreatPatterns = {
     ]
 };
 
-// Get all threat patterns as flat array
 function getAllThreatPatterns() {
     return Object.values(ThreatPatterns).flat();
 }
