@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     populateCipherSelects();
     setupSearchFunctionality();
+    setupCharCounters();
 });
 
 // Populate both encode and decode cipher dropdowns
@@ -70,6 +71,22 @@ function setupSearchFunctionality() {
     });
 }
 
+// Setup character counters
+function setupCharCounters() {
+    const decodeInput = document.getElementById('decodeInput');
+    const encodeInput = document.getElementById('encodeInput');
+    const decodeCharCount = document.getElementById('decodeCharCount');
+    const encodeCharCount = document.getElementById('encodeCharCount');
+    
+    decodeInput.addEventListener('input', function() {
+        decodeCharCount.textContent = `${this.value.length} / 50,000`;
+    });
+    
+    encodeInput.addEventListener('input', function() {
+        encodeCharCount.textContent = `${this.value.length} / 50,000`;
+    });
+}
+
 // Filter cipher select dropdown based on search term
 function filterCipherSelect(searchTerm, selectElement) {
     const options = selectElement.getElementsByTagName('option');
@@ -101,13 +118,13 @@ function loadExample(index) {
     const examples = [
         { text: "V3JpdGUtSG9zdCAiTWFsaWNpb3VzIGNvZGUgZGV0ZWN0ZWQi", cipher: "base64" },
         { text: "49 6e 76 6f 6b 65 2d 57 65 62 52 65 71 75 65 73 74", cipher: "hex" },
-        { text: "cmd.exe%20%2Fc%20%22whoami%22", cipher: "url" },
-        { text: "01001000 01100001 01100011 01101011", cipher: "binary" }
+        { text: "Uryyb Jbeyq", cipher: "rot13" }
     ];
     
     const example = examples[index];
     document.getElementById('decodeInput').value = example.text;
     document.getElementById('decodeCipher').value = example.cipher;
+    document.getElementById('decodeCharCount').textContent = `${example.text.length} / 50,000`;
 }
 
 // Perform decoding operation
@@ -116,7 +133,12 @@ function performDecode() {
     const cipherId = document.getElementById('decodeCipher').value;
     
     if (!input) {
-        displayDecodeOutput('Please enter text to decode');
+        displayDecodeOutput('Please enter text to decode', true);
+        return;
+    }
+    
+    if (!cipherId) {
+        displayDecodeOutput('Please select a cipher method', true);
         return;
     }
     
@@ -130,7 +152,7 @@ function performDecode() {
         // Get cipher implementation
         const cipher = Ciphers[cipherId];
         if (!cipher || !cipher.decode) {
-            displayDecodeOutput('Cipher not supported or decode not available');
+            displayDecodeOutput('Cipher not supported or decode not available', true);
             return;
         }
         
@@ -139,13 +161,13 @@ function performDecode() {
         
         // Sanitize and display output
         const safeOutput = sanitizeOutput(result);
-        displayDecodeOutput(result);
+        displayDecodeOutput(result, false);
         
         // Check for threats
         checkForThreats(result);
         
     } catch (error) {
-        displayDecodeOutput('Decoding failed: ' + error.message);
+        displayDecodeOutput('Decoding failed: ' + error.message, true);
     }
 }
 
@@ -154,7 +176,7 @@ function autoDetectDecode() {
     const input = document.getElementById('decodeInput').value.trim();
     
     if (!input) {
-        displayDecodeOutput('Please enter text to decode');
+        displayDecodeOutput('Please enter text to decode', true);
         return;
     }
     
@@ -189,10 +211,10 @@ function autoDetectDecode() {
             results = 'No readable output detected from common cipher methods.';
         }
         
-        displayDecodeOutput(results);
+        displayDecodeOutput(results, false);
         
     } catch (error) {
-        displayDecodeOutput('Auto-detection failed: ' + error.message);
+        displayDecodeOutput('Auto-detection failed: ' + error.message, true);
     }
 }
 
@@ -202,7 +224,12 @@ function performEncode() {
     const cipherId = document.getElementById('encodeCipher').value;
     
     if (!input) {
-        displayEncodeOutput('Please enter text to encode');
+        displayEncodeOutput('Please enter text to encode', true);
+        return;
+    }
+    
+    if (!cipherId) {
+        displayEncodeOutput('Please select a cipher method', true);
         return;
     }
     
@@ -216,7 +243,7 @@ function performEncode() {
         // Get cipher implementation
         const cipher = Ciphers[cipherId];
         if (!cipher || !cipher.encode) {
-            displayEncodeOutput('Cipher not supported');
+            displayEncodeOutput('Cipher not supported', true);
             return;
         }
         
@@ -225,10 +252,10 @@ function performEncode() {
         
         // Sanitize and display output
         const safeOutput = sanitizeOutput(result);
-        displayEncodeOutput(result);
+        displayEncodeOutput(result, false);
         
     } catch (error) {
-        displayEncodeOutput('Encoding failed: ' + error.message);
+        displayEncodeOutput('Encoding failed: ' + error.message, true);
     }
 }
 
@@ -237,7 +264,7 @@ function encodeAll() {
     const input = document.getElementById('encodeInput').value.trim();
     
     if (!input) {
-        displayEncodeOutput('Please enter text to encode');
+        displayEncodeOutput('Please enter text to encode', true);
         return;
     }
     
@@ -267,10 +294,10 @@ function encodeAll() {
             }
         });
         
-        displayEncodeOutput(results);
+        displayEncodeOutput(results, false);
         
     } catch (error) {
-        displayEncodeOutput('Encode all failed: ' + error.message);
+        displayEncodeOutput('Encode all failed: ' + error.message, true);
     }
 }
 
@@ -316,12 +343,28 @@ function checkForThreats(decodedText) {
 }
 
 // Display functions
-function displayDecodeOutput(text) {
-    document.getElementById('decodeOutputText').textContent = text;
+function displayDecodeOutput(text, isEmpty) {
+    const outputBox = document.getElementById('decodeOutput');
+    const outputText = document.getElementById('decodeOutputText');
+    outputText.textContent = text;
+    
+    if (isEmpty) {
+        outputBox.classList.add('empty');
+    } else {
+        outputBox.classList.remove('empty');
+    }
 }
 
-function displayEncodeOutput(text) {
-    document.getElementById('encodeOutputText').textContent = text;
+function displayEncodeOutput(text, isEmpty) {
+    const outputBox = document.getElementById('encodeOutput');
+    const outputText = document.getElementById('encodeOutputText');
+    outputText.textContent = text;
+    
+    if (isEmpty) {
+        outputBox.classList.add('empty');
+    } else {
+        outputBox.classList.remove('empty');
+    }
 }
 
 // Copy output to clipboard
@@ -331,12 +374,15 @@ function copyOutput(type) {
         document.getElementById('encodeOutputText');
     const text = textElement.textContent;
     
+    const btn = event.target;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const btn = event.target;
         const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
         setTimeout(() => {
             btn.textContent = originalText;
+            btn.classList.remove('copied');
         }, 2000);
     }).catch(err => {
         // Fallback for older browsers
@@ -346,19 +392,29 @@ function copyOutput(type) {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
+        
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('copied');
+        }, 2000);
     });
 }
 
 // Clear functions
 function clearDecode() {
     document.getElementById('decodeInput').value = '';
-    document.getElementById('decodeOutputText').textContent = 'Your decoded text will show up here...';
+    document.getElementById('decodeCharCount').textContent = '0 / 50,000';
+    displayDecodeOutput('Your decoded text will show up here...', true);
     document.getElementById('decodeWarnings').innerHTML = '';
 }
 
 function clearEncode() {
     document.getElementById('encodeInput').value = '';
-    document.getElementById('encodeOutputText').textContent = 'Your encoded text will appear here...';
+    document.getElementById('encodeCharCount').textContent = '0 / 50,000';
+    displayEncodeOutput('Your encoded text will appear here...', true);
 }
 
 // Helper function to escape HTML
