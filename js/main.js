@@ -462,9 +462,11 @@ function copyOutput(type) {
     const text = textElement.textContent;
     
     navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard!');
         const btn = event.target;
         const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
+        btn.textContent = '✓ Copied';
+        btn.style.background = 'rgba(0, 255, 65, 0.3)';
         setTimeout(() => {
             btn.textContent = originalText;
         }, 2000);
@@ -476,7 +478,20 @@ function copyOutput(type) {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
+        showToast('Copied to clipboard!');
     });
+}
+
+// Show toast notification
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        document.body.removeChild(toast);
+    }, 3000);
 }
 
 // Clear functions
