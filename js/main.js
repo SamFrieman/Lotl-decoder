@@ -143,39 +143,49 @@ function loadExample(index) {
 function performDecode() {
     const input = document.getElementById('decodeInput').value.trim();
     const cipherId = document.getElementById('decodeCipher').value;
+    const button = event.target;
     
     if (!input) {
         displayDecodeOutput('Please enter text to decode');
         return;
     }
-    
-    try {
-        // Security check
-        securityCheck(input, 'decode');
+
+    // Set loading state
+    setButtonLoading(button, true);
+
+    // Use setTimeout to allow UI to update
+    setTimeout(() => {
+        try {
+            // Security check
+            securityCheck(input, 'decode');
+            
+            // Sanitize input
+            const cleanInput = sanitizeInput(input);
+            
+            // Get cipher implementation
+            const cipher = Ciphers[cipherId];
+            if (!cipher || !cipher.decode) {
+                displayDecodeOutput('Cipher not supported or decode not available');
+                return;
+            }
+            
+            // Perform decoding
+            const result = cipher.decode(cleanInput);
+            
+            // Sanitize and display output
+            const safeOutput = sanitizeOutput(result);
+            displayDecodeOutput(result, true);  // NEW: added success param
+            
+            // Check for threats
+            checkForThreats(result);
         
-        // Sanitize input
-        const cleanInput = sanitizeInput(input);
-        
-        // Get cipher implementation
-        const cipher = Ciphers[cipherId];
-        if (!cipher || !cipher.decode) {
-            displayDecodeOutput('Cipher not supported or decode not available');
-            return;
+   } catch (error) {
+            displayDecodeOutput('Decoding failed: ' + error.message);
+        } finally {
+            //Remove loading state
+            setButtonLoading(button, false);
         }
-        
-        // Perform decoding
-        const result = cipher.decode(cleanInput);
-        
-        // Sanitize and display output
-        const safeOutput = sanitizeOutput(result);
-        displayDecodeOutput(result);
-        
-        // Check for threats
-        checkForThreats(result);
-        
-    } catch (error) {
-        displayDecodeOutput('Decoding failed: ' + error.message);
-    }
+    }, 50);
 }
 
 // Auto-detect cipher type by trying multiple methods
