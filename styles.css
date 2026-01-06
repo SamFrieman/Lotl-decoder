@@ -20,24 +20,24 @@ body {
 
 header {
     text-align: center;
-    padding: 60px 0 40px 0;
+    padding: 50px 0 30px 0;
     border-bottom: 1px solid rgba(0, 255, 65, 0.3);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     position: relative;
 }
 
 /* Title gets a subtle glow effect */
 h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 300;
     letter-spacing: 2px;
     text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .tagline {
     color: #888;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 300;
     letter-spacing: 1px;
 }
@@ -47,7 +47,7 @@ h1 {
     background: rgba(15, 20, 25, 0.7);
     border: 1px solid rgba(0, 255, 65, 0.2);
     border-radius: 12px;
-    padding: 40px;
+    padding: 35px;
     margin-bottom: 30px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -63,8 +63,8 @@ h1 {
 .split-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 25px;
+    margin-bottom: 35px;
 }
 
 /* Stack on mobile */
@@ -72,41 +72,60 @@ h1 {
     .split-section {
         grid-template-columns: 1fr;
     }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    header {
+        padding: 30px 0 20px 0;
+    }
 }
 
 .section-title {
-    font-size: 1.5em;
-    margin-bottom: 20px;
+    font-size: 1.4em;
+    margin-bottom: 25px;
     font-weight: 300;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
     gap: 10px;
+    color: rgba(0, 255, 65, 0.95);
 }
 
 .input-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
     margin-bottom: 10px;
-    font-size: 0.95em;
-    color: rgba(0, 255, 65, 0.8);
+    font-size: 0.9em;
+    color: rgba(0, 255, 65, 0.9);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.char-count {
+    font-size: 0.85em;
+    color: #666;
     font-weight: 400;
 }
 
 /* Text input styling */
 textarea {
     width: 100%;
-    min-height: 180px;
-    background: rgba(0, 0, 0, 0.4);
+    min-height: 160px;
+    background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 65, 0.3);
     border-radius: 8px;
-    padding: 15px;
+    padding: 14px;
     color: #00ff41;
     font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.5;
     resize: vertical;
     transition: all 0.3s ease;
 }
@@ -114,20 +133,53 @@ textarea {
 textarea:focus {
     outline: none;
     border-color: rgba(0, 255, 65, 0.6);
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
+}
+
+textarea::placeholder {
+    color: #555;
 }
 
 /* Dropdown for cipher selection */
-select {
+.select-wrapper {
+    position: relative;
+}
+
+.cipher-search {
     width: 100%;
-    padding: 12px 15px;
-    background: rgba(0, 0, 0, 0.4);
+    padding: 11px 15px;
+    background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 65, 0.3);
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
     color: #00ff41;
     font-family: 'Segoe UI', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    border-bottom: none;
+}
+
+.cipher-search:focus {
+    outline: none;
+    border-color: rgba(0, 255, 65, 0.6);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.cipher-search::placeholder {
+    color: #555;
+}
+
+select {
+    width: 100%;
+    padding: 11px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 0 0 8px 8px;
+    border-top: none;
+    color: #00ff41;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -135,20 +187,27 @@ select {
 select:focus {
     outline: none;
     border-color: rgba(0, 255, 65, 0.6);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
 }
 
 select option {
     background: #0a0a0a;
     color: #00ff41;
+    padding: 8px;
+}
+
+select optgroup {
+    color: #00ff41;
+    font-weight: 600;
+    background: #0f0f0f;
 }
 
 /* Button grid layout */
 .button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 /* Button styling */
@@ -156,21 +215,22 @@ button {
     background: rgba(0, 255, 65, 0.1);
     color: #00ff41;
     border: 1px solid rgba(0, 255, 65, 0.4);
-    padding: 14px 20px;
+    padding: 11px 20px;
     border-radius: 8px;
     font-family: 'Segoe UI', sans-serif;
-    font-size: 0.95em;
+    font-size: 0.9em;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
 button:hover {
     background: rgba(0, 255, 65, 0.2);
     border-color: rgba(0, 255, 65, 0.8);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    transform: translateY(-1px);
 }
 
 button:active {
@@ -179,86 +239,119 @@ button:active {
 
 /* Primary buttons get more emphasis */
 .primary-btn {
-    background: rgba(0, 255, 65, 0.15);
+    background: rgba(0, 255, 65, 0.2);
     border: 1px solid rgba(0, 255, 65, 0.6);
+    font-weight: 600;
 }
 
 /* Output box styling */
 .output-box {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 65, 0.3);
     border-radius: 8px;
-    padding: 20px;
-    min-height: 180px;
+    padding: 14px 55px 14px 14px;
+    min-height: 160px;
     font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.5;
     white-space: pre-wrap;
-    word-break: break-all;
+    word-break: break-word;
     position: relative;
     transition: all 0.3s ease;
+}
+
+.output-box.empty {
+    color: #555;
 }
 
 /* Warning box styling */
 .warning {
     background: rgba(255, 69, 0, 0.1);
-    border: 1px solid rgba(255, 69, 0, 0.4);
+    border-left: 3px solid rgba(255, 69, 0, 0.8);
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
     color: #ff6347;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .warning-title {
     font-weight: 600;
-    font-size: 1.1em;
-    margin-bottom: 10px;
+    font-size: 1em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.warning-title::before {
+    content: "⚠";
+    font-size: 1.2em;
 }
 
 /* Info box */
 .info {
     background: rgba(0, 191, 255, 0.08);
-    border: 1px solid rgba(0, 191, 255, 0.3);
+    border-left: 3px solid rgba(0, 191, 255, 0.6);
     border-radius: 8px;
-    padding: 20px;
+    padding: 16px 20px;
     margin-bottom: 25px;
     color: #5dade2;
-    font-size: 0.95em;
+    font-size: 0.9em;
     line-height: 1.6;
 }
 
 /* Copy button */
 .copy-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(0, 255, 65, 0.1);
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 255, 65, 0.15);
     color: #00ff41;
     border: 1px solid rgba(0, 255, 65, 0.4);
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 6px;
-    font-size: 0.85em;
+    font-size: 0.8em;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 .copy-btn:hover {
-    background: rgba(0, 255, 65, 0.2);
+    background: rgba(0, 255, 65, 0.25);
     border-color: rgba(0, 255, 65, 0.8);
+    transform: translateY(0);
+}
+
+.copy-btn.copied {
+    background: rgba(0, 255, 65, 0.3);
+    border-color: rgba(0, 255, 65, 1);
 }
 
 /* Example cards */
 .examples {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .example-item {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(0, 255, 65, 0.2);
     border-radius: 8px;
-    padding: 20px;
+    padding: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -266,23 +359,135 @@ button:active {
 .example-item:hover {
     background: rgba(0, 0, 0, 0.5);
     border-color: rgba(0, 255, 65, 0.5);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 255, 65, 0.15);
 }
 
 .example-title {
     font-weight: 600;
     margin-bottom: 8px;
-    font-size: 0.95em;
+    font-size: 0.9em;
 }
 
 .example-code {
     color: #888;
-    font-size: 0.85em;
+    font-size: 0.8em;
     font-family: 'Consolas', monospace;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* Cipher Reference Section */
+.cipher-reference {
+    margin-top: 50px;
+}
+
+.cipher-reference h2 {
+    font-size: 1.8em;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: rgba(0, 255, 65, 0.95);
+}
+
+.cipher-reference-intro {
+    color: #888;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+.cipher-categories {
+    display: grid;
+    gap: 25px;
+}
+
+.cipher-category {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cipher-category:hover {
+    border-color: rgba(0, 255, 65, 0.4);
+}
+
+.category-header {
+    background: rgba(0, 255, 65, 0.08);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.category-header:hover {
+    background: rgba(0, 255, 65, 0.12);
+}
+
+.category-header h3 {
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #00ff41;
+}
+
+.category-toggle {
+    font-size: 1.2em;
+    color: rgba(0, 255, 65, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.category-header.collapsed .category-toggle {
+    transform: rotate(-90deg);
+}
+
+.category-ciphers {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.category-ciphers.collapsed {
+    max-height: 0;
+    padding: 0 20px;
+}
+
+.cipher-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 65, 0.15);
+    border-radius: 8px;
+    padding: 14px;
+    transition: all 0.2s ease;
+}
+
+.cipher-item:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 255, 65, 0.3);
+    transform: translateX(3px);
+}
+
+.cipher-name {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: #00ff41;
+    margin-bottom: 6px;
+}
+
+.cipher-description {
+    font-size: 0.85em;
+    color: #999;
+    line-height: 1.5;
 }
 
 /* Footer */
@@ -305,42 +510,25 @@ footer {
     text-shadow: 0 0 15px rgba(0, 255, 65, 0.6);
 }
 
-/* Cipher info badges */
-.cipher-badge {
-    display: inline-block;
-    background: rgba(0, 255, 65, 0.1);
-    border: 1px solid rgba(0, 255, 65, 0.3);
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    margin: 5px 5px 5px 0;
-}
-
-/* Enhanced select wrapper for searchable dropdown */
-.select-wrapper {
+/* Tooltips */
+[data-tooltip] {
     position: relative;
 }
 
-.cipher-search {
-    width: 100%;
-    padding: 12px 15px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 255, 65, 0.3);
-    border-radius: 8px 8px 0 0;
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.95);
     color: #00ff41;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    border-bottom: none;
-}
-
-.cipher-search:focus {
-    outline: none;
-    border-color: rgba(0, 255, 65, 0.6);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-}
-
-select {
-    border-radius: 0 0 8px 8px;
-    border-top: none;
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    border-radius: 6px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 8px;
+    pointer-events: none;
 }
