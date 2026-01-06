@@ -35,12 +35,11 @@
                 <div class="input-group">
                     <label>Encoded Input:</label>
                     <textarea id="decodeInput" placeholder="Paste your encoded string here..." maxlength="50000"></textarea>
-                    <span class="char-counter" id="decodeCharCount">0 / 50,000</span>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performDecode()" title="Ctrl/Cmd + Enter">Decode</button>
-                    <button onclick="autoDetectDecode()" title="Ctrl/Cmd + Shift + D">Auto-Detect</button>
+                    <button class="primary-btn" onclick="performDecode()">Decode</button>
+                    <button onclick="autoDetectDecode()">Auto-Detect</button>
                     <button onclick="clearDecode()">Clear</button>
                 </div>
 
@@ -69,12 +68,11 @@
                 <div class="input-group">
                     <label>Plain Text Input:</label>
                     <textarea id="encodeInput" placeholder="Type the text you want to encode..." maxlength="50000"></textarea>
-                    <span class="char-counter" id="encodeCharCount">0 / 50,000</span>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performEncode()" title="Ctrl/Cmd + Enter">Encode</button>
-                    <button onclick="encodeAll()" title="Ctrl/Cmd + Shift + A">Encode All</button>
+                    <button class="primary-btn" onclick="performEncode()">Encode</button>
+                    <button onclick="encodeAll()">Encode All</button>
                     <button onclick="clearEncode()">Clear</button>
                 </div>
 
