@@ -86,6 +86,16 @@ h1 {
 
 .input-group {
     margin-bottom: 25px;
+    position: relative;
+}
+
+.char-counter {
+    position: absolute;
+    right: 10px;
+    bottom: -20px;
+    font-size: 0.75em;
+    color: #666;
+    font-family: 'Consolas', monospace;
 }
 
 label {
