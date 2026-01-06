@@ -16,7 +16,7 @@
         <div class="decoder-section">
             <div class="info">
                 <strong>About:</strong> Security analysts often encounter encoded malicious commands. 
-                This tool supports 100+ encoding methods used in real-world attacks.
+                This tool supports 50+ encoding methods used in real-world attacks.
             </div>
         </div>
 
@@ -25,7 +25,10 @@
                 <h2 class="section-title">Decode</h2>
                 
                 <div class="input-group">
-                    <label>Select Cipher Method:</label>
+                    <label>
+                        Select Cipher Method
+                        <span class="char-count">50+ available</span>
+                    </label>
                     <div class="select-wrapper">
                         <input type="text" id="decodeSearch" class="cipher-search" placeholder="Search ciphers..." autocomplete="off">
                         <select id="decodeCipher" size="8"></select>
@@ -33,21 +36,24 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Encoded Input:</label>
+                    <label>
+                        Encoded Input
+                        <span class="char-count" id="decodeCharCount">0 / 50,000</span>
+                    </label>
                     <textarea id="decodeInput" placeholder="Paste your encoded string here..." maxlength="50000"></textarea>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performDecode()">Decode</button>
-                    <button onclick="autoDetectDecode()">Auto-Detect</button>
-                    <button onclick="clearDecode()">Clear</button>
+                    <button class="primary-btn" onclick="performDecode()" data-tooltip="Decode using selected cipher">🔓 Decode</button>
+                    <button onclick="autoDetectDecode()" data-tooltip="Try multiple common ciphers">🔍 Auto-Detect</button>
+                    <button onclick="clearDecode()">✕ Clear</button>
                 </div>
 
                 <div id="decodeWarnings"></div>
 
                 <div class="input-group">
-                    <label>Decoded Output:</label>
-                    <div class="output-box" id="decodeOutput">
+                    <label>Decoded Output</label>
+                    <div class="output-box empty" id="decodeOutput">
                         <button class="copy-btn" onclick="copyOutput('decode')">Copy</button>
                         <span id="decodeOutputText">Your decoded text will show up here...</span>
                     </div>
@@ -58,7 +64,10 @@
                 <h2 class="section-title">Encode</h2>
                 
                 <div class="input-group">
-                    <label>Select Cipher Method:</label>
+                    <label>
+                        Select Cipher Method
+                        <span class="char-count">50+ available</span>
+                    </label>
                     <div class="select-wrapper">
                         <input type="text" id="encodeSearch" class="cipher-search" placeholder="Search ciphers..." autocomplete="off">
                         <select id="encodeCipher" size="8"></select>
@@ -66,19 +75,22 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Plain Text Input:</label>
+                    <label>
+                        Plain Text Input
+                        <span class="char-count" id="encodeCharCount">0 / 50,000</span>
+                    </label>
                     <textarea id="encodeInput" placeholder="Type the text you want to encode..." maxlength="50000"></textarea>
                 </div>
 
                 <div class="button-grid">
-                    <button class="primary-btn" onclick="performEncode()">Encode</button>
-                    <button onclick="encodeAll()">Encode All</button>
-                    <button onclick="clearEncode()">Clear</button>
+                    <button class="primary-btn" onclick="performEncode()" data-tooltip="Encode using selected cipher">🔒 Encode</button>
+                    <button onclick="encodeAll()" data-tooltip="Encode with all available ciphers">⚡ Encode All</button>
+                    <button onclick="clearEncode()">✕ Clear</button>
                 </div>
 
                 <div class="input-group">
-                    <label>Encoded Output:</label>
-                    <div class="output-box" id="encodeOutput">
+                    <label>Encoded Output</label>
+                    <div class="output-box empty" id="encodeOutput">
                         <button class="copy-btn" onclick="copyOutput('encode')">Copy</button>
                         <span id="encodeOutputText">Your encoded text will appear here...</span>
                     </div>
@@ -97,6 +109,22 @@
                     <div class="example-title">Hex Encoded Web Request</div>
                     <div class="example-code">49 6e 76 6f 6b 65 2d 57 65 62</div>
                 </div>
+                <div class="example-item" onclick="loadExample(2)">
+                    <div class="example-title">ROT13 Cipher</div>
+                    <div class="example-code">Uryyb Jbeyq</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cipher Reference Section -->
+        <div class="decoder-section cipher-reference">
+            <h2>Cipher Reference Guide</h2>
+            <p class="cipher-reference-intro">
+                Browse the complete list of supported encoding and cipher methods. Click on any category to expand and view detailed descriptions.
+            </p>
+            
+            <div class="cipher-categories" id="cipherCategories">
+                <!-- Categories will be dynamically populated -->
             </div>
         </div>
 
@@ -109,5 +137,6 @@
     <script src="js/config.js"></script>
     <script src="js/ciphers.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cipher-reference.js"></script>
 </body>
 </html>
