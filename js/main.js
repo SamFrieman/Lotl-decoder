@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     populateCipherSelects();
     setupSearchFunctionality();
+    setupCharacterCounters();
 });
 
 // Populate both encode and decode cipher dropdowns
@@ -68,6 +69,34 @@ function setupSearchFunctionality() {
     encodeSearch.addEventListener('input', function() {
         filterCipherSelect(this.value.toLowerCase(), encodeSelect);
     });
+}
+
+// Setup character counters
+function setupCharacterCounters() {
+    const decodeInput = document.getElementById('decodeInput');
+    const encodeInput = document.getElementById('encodeInput');
+    const decodeCounter = document.getElementById('decodeCharCount');
+    const encodeCounter = document.getElementById('encodeCharCount');
+    
+    decodeInput.addEventListener('input', function() {
+        updateCharCounter(this.value.length, decodeCounter);
+    });
+    
+    encodeInput.addEventListener('input', function() {
+        updateCharCounter(this.value.length, encodeCounter);
+    });
+}
+
+function updateCharCounter(length, counterElement) {
+    counterElement.textContent = `${length.toLocaleString()} / 50,000`;
+    
+    if (length > 45000) {
+        counterElement.style.color = '#ff6347';
+    } else if (length > 40000) {
+        counterElement.style.color = '#ffa500';
+    } else {
+        counterElement.style.color = '#666';
+    }
 }
 
 // Filter cipher select dropdown based on search term
