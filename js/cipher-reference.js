@@ -32,13 +32,28 @@ const CipherDescriptions = {
     'railfence': 'Rail Fence cipher writes text in a zigzag pattern across multiple "rails" then reads off each rail sequentially. Creates a transposition of the original text.'
 };
 
-// Category descriptions for grouped ciphers
-const CategoryDescriptions = {
-    'Base Encodings': 'Base encoding schemes convert binary data into text using a specific set of characters. Commonly used for data transmission and storage where binary data needs to be represented as text.',
-    'Web Encodings': 'Encodings specifically designed for web technologies to safely transmit and display data in URLs, HTML documents, and web applications.',
-    'Numeric': 'Numeric representations of text data using various number systems. Essential for understanding how computers store and process text internally.',
-    'Substitution': 'Substitution ciphers replace each character with another character according to a fixed system. One of the oldest forms of encryption.',
-    'Transposition': 'Transposition ciphers rearrange the order of characters without changing the characters themselves. Security comes from the scrambled order.'
+// Category descriptions and metadata
+const CategoryInfo = {
+    'Base Encodings': {
+        description: 'Base encoding schemes convert binary data into text using a specific set of characters. Commonly used for data transmission and storage where binary data needs to be represented as text.',
+        subtitle: '7 encoding methods'
+    },
+    'Web Encodings': {
+        description: 'Encodings specifically designed for web technologies to safely transmit and display data in URLs, HTML documents, and web applications.',
+        subtitle: '3 encoding methods'
+    },
+    'Numeric': {
+        description: 'Numeric representations of text data using various number systems. Essential for understanding how computers store and process text internally.',
+        subtitle: '4 encoding methods'
+    },
+    'Substitution': {
+        description: 'Substitution ciphers replace each character with another character according to a fixed system. One of the oldest and most widely-used forms of cryptography.',
+        subtitle: '29 cipher variations'
+    },
+    'Transposition': {
+        description: 'Transposition ciphers rearrange the order of characters without changing the characters themselves. Security comes from the scrambled order rather than character substitution.',
+        subtitle: '2 cipher methods'
+    }
 };
 
 // Generic descriptions for cipher patterns
@@ -76,35 +91,40 @@ function populateCipherReference() {
             toggleCategory(this);
         };
         
+        const titleWrapper = document.createElement('div');
+        titleWrapper.className = 'category-title-wrapper';
+        
         const title = document.createElement('h3');
         title.textContent = categoryName;
+        
+        const subtitle = document.createElement('div');
+        subtitle.className = 'category-subtitle';
+        subtitle.textContent = CategoryInfo[categoryName]?.subtitle || '';
         
         const toggle = document.createElement('span');
         toggle.className = 'category-toggle';
         toggle.textContent = '▼';
         
-        headerDiv.appendChild(title);
+        titleWrapper.appendChild(title);
+        titleWrapper.appendChild(subtitle);
+        headerDiv.appendChild(titleWrapper);
         headerDiv.appendChild(toggle);
         
         // Category content
         const contentDiv = document.createElement('div');
         contentDiv.className = 'category-ciphers';
         
-        // Add category description if available
-        if (CategoryDescriptions[categoryName]) {
-            const categoryDescItem = document.createElement('div');
-            categoryDescItem.className = 'cipher-item';
-            categoryDescItem.style.gridColumn = '1 / -1';
-            categoryDescItem.style.background = 'rgba(0, 255, 65, 0.05)';
-            categoryDescItem.style.borderColor = 'rgba(0, 255, 65, 0.25)';
+        // Add category overview if available
+        if (CategoryInfo[categoryName]?.description) {
+            const overviewDiv = document.createElement('div');
+            overviewDiv.className = 'category-overview';
             
-            const categoryDescText = document.createElement('div');
-            categoryDescText.className = 'cipher-description';
-            categoryDescText.style.color = '#5dade2';
-            categoryDescText.textContent = CategoryDescriptions[categoryName];
+            const overviewText = document.createElement('div');
+            overviewText.className = 'category-overview-text';
+            overviewText.textContent = CategoryInfo[categoryName].description;
             
-            categoryDescItem.appendChild(categoryDescText);
-            contentDiv.appendChild(categoryDescItem);
+            overviewDiv.appendChild(overviewText);
+            contentDiv.appendChild(overviewDiv);
         }
         
         // Group similar ciphers
