@@ -182,3 +182,10 @@ Contributions, issues, and feature requests are welcome. Feel free to check the 
 - Auto-detection feature
 - Threat pattern detection
 - Comprehensive cipher reference guide
+
+### Version 2.0
+- 100 cipher methods now fully implemented
+- Comprehensive automated testing suite for all modules.
+- Auto-detect capabilities optimized for high-speed analysis.
+- Enhanced decoding metrics and data visualization.
+- Logic errors in Bacon Cipher decoding.
